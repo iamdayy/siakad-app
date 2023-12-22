@@ -3,9 +3,12 @@ import forms from '@tailwindcss/forms';
 
 /** @type {import('tailwindcss').Config} */
 export default {
+    darkMode: 'class',
     content: [
         './vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php',
+        './vendor/rappasoft/laravel-livewire-tables/resources/views/**/*.blade.php',
         './storage/framework/views/*.php',
+        "./node_modules/flowbite/**/*.js",
         './resources/views/**/*.blade.php',
     ],
 
@@ -17,5 +20,5 @@ export default {
         },
     },
 
-    plugins: [forms],
+    plugins: [forms, require('flowbite/plugin')],
 };

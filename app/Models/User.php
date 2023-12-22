@@ -18,9 +18,10 @@ class User extends Authenticatable
      * @var array<int, string>
      */
     protected $fillable = [
-        'name',
+        'username',
         'email',
         'password',
+        'level_id'
     ];
 
     /**
@@ -42,4 +43,13 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
         'password' => 'hashed',
     ];
+
+    public function level() {
+        return $this->belongsTo(Level::class);
+    }
+
+    public function profileable()
+    {
+        return $this->morphTo();
+    }
 }
