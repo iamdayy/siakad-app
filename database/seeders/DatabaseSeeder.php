@@ -19,12 +19,15 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        Admin::factory()->create();
-        Staff::factory()->create();
-        Collager::factory()->create();
-        Lecturer::factory()->create();
-        Menu::factory()->create();
-        Level::factory()->create();
+        // Admin::factory()->create();
+        // Staff::factory()->create();
+        // Collager::factory()->create();
+        // Lecturer::factory()->create();
+        // Menu::factory()->create();
+        // Level::factory()->create();
+        $this->call([
+            RouteSeeder::class,
+        ]);
         // \App\Models\User::factory(10)->create();
 
         // \App\Models\User::factory()->create([

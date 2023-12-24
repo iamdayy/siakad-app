@@ -52,7 +52,6 @@ new #[Layout('layouts.guest')] class extends Component {
         if (!$profile) {
             return;
         }
-        // dd($profile);
         event(new Registered(($user = User::create($validated))));
         $profile->user()->save($user);
         Auth::login($user);

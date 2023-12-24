@@ -20,4 +20,8 @@ class Menu extends Model
     public function level() {
         return $this->belongsTo(Level::class);
     }
+
+    public function routes() {
+        return $this->hasMany(Route::class);
+    }
 }

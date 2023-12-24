@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
+use App\Models\Menu;
 
 /*
 |--------------------------------------------------------------------------
@@ -16,9 +17,18 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
     if (Auth::check()) {
-        return redirect(route('dashboard'));
+        $menus = Menu::all();
+        return view('menu', ['menus' => $menus]);
     }
     return redirect(route('login'));
+})->name('home');
+
+Route::middleware(['auth', 'verified'])->group(function () {
+    Route::name('master.')->prefix('master')->group(function () {
+       Route::get('/', function () {
+        return view('dashboard');
+       })->name('dashboard');
+    });
 });
 
 Route::view('dashboard', 'dashboard')
