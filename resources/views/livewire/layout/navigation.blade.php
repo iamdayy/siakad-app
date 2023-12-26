@@ -16,7 +16,7 @@ new class extends Component
     }
 }; ?>
 
-<nav x-data="{ open: false }" class="bg-white border-b border-gray-100 dark:bg-gray-800 dark:border-gray-700">
+<nav x-data="{ open: false }">
     <!-- Primary Navigation Menu -->
     <div class="px-4 mx-auto max-w-7xl sm:px-6 lg:px-8">
         <div class="flex justify-between h-16">
@@ -29,10 +29,8 @@ new class extends Component
                 </div>
 
                 <!-- Navigation Links -->
-                <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
-                    <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')" wire:navigate>
-                        {{ __('Dashboard') }}
-                    </x-nav-link>
+                <div class="flex items-center px-4 font-semibold uppercase py-2 text-xl md:hidden text-primary-dark dark:text-primary">
+                    {{ config('app.name') }}
                 </div>
             </div>
 
@@ -106,5 +104,7 @@ new class extends Component
                 </button>
             </div>
         </div>
+    </div>
+    <div>
     </div>
 </nav>

@@ -11,6 +11,13 @@ class GroupTable extends LivewireDatatable
 {
     public string|null|Model $model = Group::class;
 
+    public string $actName = 'Group';
+    public string $actPath = 'master.reference.group';
+    public bool $create = true;
+
+    public function delete($id): void {
+        Group::destroy($id);
+    }
     public function getColumns(): array|Model
     {
         return [
@@ -20,6 +27,10 @@ class GroupTable extends LivewireDatatable
             ->label('Code'),
             Column::name('title')
             ->label('Title'),
+            Column::callback('id', function ($id) {
+                $model = Group::find($id);
+                return view('livewire.datatables.actions', ['model' => $model, 'path' => $this->actPath, 'actions' => ['edit', 'delete'] ]);
+            })->unsortable()
         ];
     }
 }

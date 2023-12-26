@@ -11,6 +11,14 @@ class EntranceTable extends LivewireDatatable
 {
     public string|null|Model $model = Entrance::class;
 
+    public string $actName = 'Entrance';
+    public string $actPath = 'master.reference.entrance';
+    public bool $create = true;
+
+    public function delete($id): void {
+        Entrance::destroy($id);
+    }
+
     public function getColumns(): array|Model
     {
         return [
@@ -20,6 +28,10 @@ class EntranceTable extends LivewireDatatable
             ->label('Code'),
             Column::name('title')
             ->label('Title'),
+            Column::callback('id', function ($id) {
+                $model = Entrance::find($id);
+                return view('livewire.datatables.actions', ['model' => $model, 'path' => $this->actPath, 'actions' => ['edit', 'delete'] ]);
+            })->unsortable()
         ];
     }
 }

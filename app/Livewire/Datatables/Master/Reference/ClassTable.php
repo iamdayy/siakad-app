@@ -12,7 +12,12 @@ class ClassTable extends LivewireDatatable
     public string|null|Model $model = Clas::class;
 
     public string $actName = 'Class';
-    public string $create = 'hello';
+    public string $actPath = 'master.reference.class';
+    public bool $create = true;
+
+    public function delete($id): void {
+        Clas::destroy($id);
+    }
 
     public function getColumns(): array|Model
     {
@@ -23,6 +28,10 @@ class ClassTable extends LivewireDatatable
             ->label('Code'),
             Column::name('title')
             ->label('Title'),
+            Column::callback('id', function ($id) {
+                $model = Clas::find($id);
+                return view('livewire.datatables.actions', ['model' => $model, 'path' => $this->actPath, 'actions' => ['edit', 'delete'] ]);
+            })->unsortable()
         ];
     }
 }

@@ -9,6 +9,11 @@ class Clas extends Model
 {
     use HasFactory;
 
+    protected $fillable = [
+        'code',
+        'title'
+    ];
+
     public function collagers ()
     {
         return $this->hasMany(Collager::class);

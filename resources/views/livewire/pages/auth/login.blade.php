@@ -37,7 +37,7 @@ new #[Layout('layouts.guest')] class extends Component
         <div>
             <x-input-label for="username" :value="__('Username')" />
             <x-text-input wire:model="form.username" id="username" class="block w-full mt-1" type="text" name="username" required autofocus autocomplete="username" />
-            <x-input-error :messages="$errors->get('username')" class="mt-2" />
+            <x-input-error for="username" class="mt-2" />
         </div>
 
         <!-- Password -->
@@ -49,7 +49,7 @@ new #[Layout('layouts.guest')] class extends Component
                             name="password"
                             required autocomplete="current-password" />
 
-            <x-input-error :messages="$errors->get('password')" class="mt-2" />
+            <x-input-error for="password" class="mt-2" />
         </div>
 
         <!-- Remember Me -->
@@ -60,7 +60,7 @@ new #[Layout('layouts.guest')] class extends Component
             </label>
         </div>
 
-        <div class="flex items-center justify-end mt-4">
+        <div class="flex flex-col space-y-2 items-center justify-end mt-4">
             @if (Route::has('password.request'))
                 <a class="text-sm text-gray-600 underline rounded-md dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 dark:focus:ring-offset-gray-800" href="{{ route('password.request') }}" wire:navigate>
                     {{ __('Forgot your password?') }}

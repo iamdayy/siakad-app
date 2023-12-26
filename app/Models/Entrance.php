@@ -8,4 +8,9 @@ use Illuminate\Database\Eloquent\Model;
 class Entrance extends Model
 {
     use HasFactory;
+
+    protected $fillable = [
+        'code',
+        'title'
+    ];
 }
