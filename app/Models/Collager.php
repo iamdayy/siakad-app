@@ -41,4 +41,13 @@ class Collager extends Model
     {
         return $this->morphOne(User::class, 'profileable');
     }
+
+    public function class ()
+    {
+        $this->belongsTo(Clas::class, 'class_id');
+    }
+
+    public function entrance() {
+        return $this->belongsTo(Entrance::class);
+    }
 }

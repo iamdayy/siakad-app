@@ -6,7 +6,6 @@ use App\Models\User;
 use Arm092\LivewireDatatables\Column;
 use Illuminate\Database\Eloquent\Model;
 use Arm092\LivewireDatatables\Livewire\LivewireDatatable;
-use Arm092\LivewireDatatables\NumberColumn;
 use Illuminate\Database\Eloquent\Builder;
 
 class Usertable extends LivewireDatatable
@@ -20,7 +19,7 @@ class Usertable extends LivewireDatatable
     public function getColumns(): array|Model
     {
         return [
-            NumberColumn::name('id')
+            Column::name('id')
             ->label('ID'),
             Column::name('username')
             ->label('Username')
@@ -31,7 +30,7 @@ class Usertable extends LivewireDatatable
             ->label('Level'),
             Column::callback('id', function ($id) {
                 $model = User::find($id);
-                return view('livewire.datatables.actions', ['model' => $model]);
+                return view('livewire.datatables.actions', ['model' => $model, 'path' => 'master.users.user', 'actions' => ['show'] ] );
             })->unsortable()
         ];
     }

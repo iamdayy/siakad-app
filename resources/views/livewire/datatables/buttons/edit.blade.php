@@ -1,4 +1,4 @@
-<x-modal :value="$value->title ? $value->title : $value->username">
+<x-modal :value="'Edit ' . $value->title ? $value->title : $value->username">
     <x-slot name="trigger">
         <span>
             <button
@@ -7,5 +7,5 @@
             </button>
         </span>
     </x-slot>
-    <h1 class="text-2xl text-purple-700">{{ $value->title ? $value->title : $value->username }}</h1>
+    @livewire( $path . '.edit', ['id' => $value->id])
 </x-modal>

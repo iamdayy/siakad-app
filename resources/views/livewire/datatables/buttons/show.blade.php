@@ -7,5 +7,5 @@
             </button>
         </span>
     </x-slot>
-    @livewire('table.online-user')
+    @livewire($path . '.show')
 </x-modal>

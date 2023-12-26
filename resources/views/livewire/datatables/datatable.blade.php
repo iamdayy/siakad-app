@@ -1,13 +1,27 @@
 <div>
     @includeIf($beforeTableSlot)
     <div class="relative">
+        @if (!empty($this->create))
+            <x-modal :value="'Create ' . $this->actName">
+                <x-slot name="trigger">
+                    <span>
+                        <button
+                            class="p-1 py-3 shadow-inner text-secondary-dark dark:text-secondary bg-accent dark:bg-accent-dark hover:bg-primary dark:hover:bg-primary-dark hover:border-2 hover:border-accent hover:dark:border-accent-dark rounded-full w-full transition-colors ease-in-out">
+                            {{ __('Create') }}
+                        </button>
+                    </span>
+                </x-slot>
+                @livewire($this->actPath . '.create')
+            </x-modal>
+        @endif
         <div class="flex items-center justify-between mb-1">
             <div class="flex items-center h-10">
                 @if ($this->searchableColumns()->count())
                     <div class="flex rounded-lg w-96 shadow-sm">
                         <div class="relative flex-grow focus-within:z-10">
                             <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
-                                <svg class="w-5 h-5 text-gray-400" viewBox="0 0 20 20" stroke="currentColor" fill="none">
+                                <svg class="w-5 h-5 text-gray-400" viewBox="0 0 20 20" stroke="currentColor"
+                                    fill="none">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                         d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
                                 </svg>
@@ -110,7 +124,7 @@
         @endif
 
         <div wire:loading.class="opacity-50"
-            class="rounded-lg  border border-secondary mt-4 dark:border-secondary-dark @unless ($complex || $this->hidePagination) rounded-b-none @endunless shadow-lg bg-primary dark:bg-primary-dark max-w-screen overflow-x-scroll scrollbar-hide border-2 @if ($this->activeFilters) border-blue-500 @else border-transparent @endif @if ($complex) rounded-b-none border-b-0 @endif">
+            class="rounded-lg  border border-b-0 border-secondary-dark mt-4 dark:border-secondary @unless ($complex || $this->hidePagination) rounded-b-none @endunless shadow-lg bg-primary dark:bg-primary-dark max-w-screen overflow-x-scroll scrollbar-hide">
             <div>
                 <div class="table min-w-full align-middle">
                     @unless ($this->hideHeader)
@@ -189,7 +203,9 @@
                                         </div>
                                     @endif
                                 @elseif($column['type'] === 'checkbox')
-                                    @include('datatables::checkbox', ['value' => $row->checkbox_attribute])
+                                    @include('datatables::checkbox', [
+                                        'value' => $row->checkbox_attribute,
+                                    ])
                                 @elseif($column['type'] === 'label')
                                     @include('datatables::label')
                                 @else
@@ -221,7 +237,7 @@
                 </div>
             </div>
             @if ($this->results->isEmpty())
-                <p class="p-3 text-lg text-center">
+                <p class="p-3 text-lg text-center text-secondary-dark dark:text-secondary">
                     {{ __("There's Nothing to show at the moment") }}
                 </p>
             @endif
@@ -229,7 +245,7 @@
 
         @unless ($this->hidePagination)
             <div
-                class="max-w-screen bg-primary dark:bg-primary-dark @unless ($complex) rounded-b-lg @endunless border-4 border-t-0 border-b-0 @if ($this->activeFilters) border-blue-500 @else border-transparent @endif">
+                class="max-w-screen bg-primary dark:bg-primary-dark @unless ($complex) rounded-b-lg @endunless border border-secondary-dark dark:border-secondary border-t-0">
                 <div class="items-center justify-between p-2 sm:flex">
                     {{-- check if there is any data --}}
                     @if (count($this->results))

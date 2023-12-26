@@ -28,6 +28,34 @@ Route::middleware(['auth', 'verified'])->group(function () {
        Route::get('/', function () {
         return view('dashboard');
        })->name('dashboard');
+       Route::name('user.')->prefix('user')->group(function () {
+        Route::get('/users', function () {
+            return view('master.user.users');
+        })->name('users');
+        Route::get('/level', function () {
+            return view('master.user.level');
+        })->name('level');
+       });
+       Route::name('reference.')->prefix('reference')->group(function () {
+        Route::get('/class', function () {
+            return view('master.reference.class');
+        })->name('class');
+        Route::get('/classroom', function () {
+            return view('master.reference.classroom');
+        })->name('classroom');
+        Route::get('/collager-status', function () {
+            return view('master.reference.collager-status');
+        })->name('collager-status');
+        Route::get('/lecturer-status', function () {
+            return view('master.reference.lecturer-status');
+        })->name('lecturer-status');
+        Route::get('/group', function () {
+            return view('master.reference.group');
+        })->name('group');
+        Route::get('/entrance', function () {
+            return view('master.reference.entrance');
+        })->name('entrance');
+       });
     });
 });
 
