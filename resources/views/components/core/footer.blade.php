@@ -2,7 +2,7 @@
 
 
 <footer
-    class="mb-0 w-full min-h-1/8 bg-primary dark:bg-primary-dark @isset($classes)
+    class=" px-4 w-full min-h-1/8 bg-primary dark:bg-primary-dark @isset($classes)
     {{ $classes }}
 @endisset">
     <div class="overflow-x-auto bg-accent dark:bg-accent-dark rounded-t-xl">

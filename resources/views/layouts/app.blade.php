@@ -28,8 +28,7 @@
 
             @livewire('layout.navigation')
 
-            <div class="w-fullbottom
-            min-h-screen px-2 py-4">
+            <div class="w-full h-full px-2 py-4">
                 {{ $slot }}
             </div>
 
