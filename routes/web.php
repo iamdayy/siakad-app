@@ -58,7 +58,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
         });
         Route::name('setting.')->prefix('setting')->group(function () {
             Route::get('/campus-profile', function () {
-                return view('master.setting.campus-profile');
+                return view('master.setting.campuss-profile');
             })->name('campus-profile');
             Route::get('/academic-year', function () {
                 return view('master.setting.academic-year');

@@ -13,6 +13,9 @@ return new class extends Migration
     {
         Schema::create('value_components', function (Blueprint $table) {
             $table->id();
+            $table->string('code')->unique();
+            $table->string('title');
+            $table->integer('weight');
             $table->timestamps();
         });
     }

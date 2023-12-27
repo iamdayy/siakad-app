@@ -11,14 +11,12 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('value_weights', function (Blueprint $table) {
+        Schema::create('schedule_forms', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('academic_year_id');
-            $table->integer('min_value');
-            $table->integer('max_value');
-            $table->char('char_value');
-            $table->integer('weight_value');
-            $table->string('predicate_id');
+            $table->string('code')->unique();
+            $table->string('title');
+            $table->integer('semester');
+            $table->boolean('status');
             $table->timestamps();
         });
     }
@@ -28,6 +26,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('value_weights');
+        Schema::dropIfExists('schedule_forms');
     }
 };

@@ -84,7 +84,7 @@ new class extends Component
                     {{ $user->level_id }}
                 </td> --}}
                 <td class="px-2 py-1">
-                    <svg viewBox="0 0 200 200" class="w-2 h-2 fill-green-300 animate-ping">
+                    <svg viewBox="0 0 200 200" class="w-3 h-3 fill-green-500">
                         <path
                               d="
                                  M 100, 100

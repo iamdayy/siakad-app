@@ -6,7 +6,7 @@
                 <x-slot name="trigger">
                     <span>
                         <button
-                            class="p-1 py-3 shadow-inner text-secondary-dark dark:text-secondary bg-accent dark:bg-accent-dark hover:bg-primary dark:hover:bg-primary-dark hover:border-2 hover:border-accent hover:dark:border-accent-dark rounded-full w-full transition-colors ease-in-out">
+                            class="p-1 py-3 shadow-inner text-primary font-semibold text-lg bg-accent dark:bg-accent-dark hover:bg-primary dark:hover:bg-primary-dark hover:border-2 hover:border-accent hover:dark:border-accent-dark rounded-full w-full transition-colors ease-in-out">
                             {{ __('Create') }}
                         </button>
                     </span>
