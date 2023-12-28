@@ -1,3 +1,4 @@
+@props(['value'])
 <x-modal :value="'Edit ' . $value->title ? $value->title : $value->username">
     <x-slot name="trigger">
         <span>

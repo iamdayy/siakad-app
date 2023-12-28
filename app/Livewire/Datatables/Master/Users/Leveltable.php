@@ -3,21 +3,25 @@
 namespace App\Livewire\Datatables\Master\Users;
 
 use App\Models\Level;
-use Arm092\LivewireDatatables\Column;
-use Illuminate\Database\Eloquent\Model;
-use Arm092\LivewireDatatables\Livewire\LivewireDatatable;
+use Rappasoft\LaravelLivewireTables\Views\Column;
 
-class Leveltable extends LivewireDatatable
+use Rappasoft\LaravelLivewireTables\DataTableComponent;
+
+class Leveltable extends DataTableComponent
 {
-    public string|null|Model $model = Level::class;
+    public $model = Level::class;
 
-    public function getColumns(): array|Model
+    public function configure(): void
+    {
+        $this->setPrimaryKey('id');
+    }
+    public function columns(): array
     {
         return [
-            Column::name('id')
-            ->label('ID'),
-            Column::name('title')
-            ->label('Title')
+            Column::make('Id' ,'id')
+            ->sortable(),
+            Column::make('Title', 'title')
+            ->sortable()
             ->searchable(),
         ];
     }

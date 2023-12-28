@@ -3,14 +3,14 @@
 namespace App\Livewire\Datatables\Master\Setting;
 
 use App\Models\AcademicYear;
-use Arm092\LivewireDatatables\BooleanColumn;
-use Arm092\LivewireDatatables\Column;
-use Illuminate\Database\Eloquent\Model;
-use Arm092\LivewireDatatables\Livewire\LivewireDatatable;
+use Rappasoft\LaravelLivewireTables\Views\Column;
+use Rappasoft\LaravelLivewireTables\Views\Columns\BooleanColumn;
+use Rappasoft\LaravelLivewireTables\DataTableComponent;
+use Rappasoft\LaravelLivewireTables\Views\Columns\ComponentColumn;
 
-class AcademicYearTable extends LivewireDatatable
+class AcademicYearTable extends DataTableComponent
 {
-    public string|null|Model $model = AcademicYear::class;
+    public $model = AcademicYear::class;
 
     public string $actPath = 'master.setting.academic-year';
     public string $actName = 'Academic Year';
@@ -20,20 +20,29 @@ class AcademicYearTable extends LivewireDatatable
     {
         $classroom = AcademicYear::destroy($id);
     }
-    public function getColumns(): array|Model
+
+    public function configure(): void
+    {
+        $this->setPrimaryKey('id');
+        $this->setConfigurableAreas([
+            'before-tools' => [
+                'components.buttons.create',
+                ['actName' => $this->actName, 'actPath' => $this->actPath]
+            ],
+        ]);
+    }
+
+    public function columns(): array
     {
         return [
-            Column::name('id')
-            ->label('Id'),
-            Column::name('code')
-            ->label('Code'),
-            Column::name('semester')
-            ->label('Semester'),
-            BooleanColumn::name('status'),
-            Column::callback('id', function ($id) {
-                $model = AcademicYear::find($id);
-                return view('livewire.datatables.actions', ['model' => $model, 'path' => $this->actPath, 'actions' => ['edit', 'delete'] ]);
-            })->unsortable()
+            Column::make('Id', 'id'),
+            Column::make('Code', 'code'),
+            Column::make('Semester', 'semester'),
+            BooleanColumn::make('status'),
+            ComponentColumn::make('','id')->component('actions')->attributes(function ($value, $row, Column $column) {
+                $model = AcademicYear::find($value);
+                return [ 'actions' => ['edit', 'delete'], 'model' => $model, 'path' => $this->actPath];
+            }),
         ];
     }
 }

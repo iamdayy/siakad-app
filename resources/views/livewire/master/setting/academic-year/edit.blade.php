@@ -6,13 +6,15 @@ use Livewire\Volt\Component;
 new class extends Component {
     public AcademicYearForm $form;
 
+    public int $id;
+
     public function save()
     {
         $this->form->edit();
     }
     public function mount()
     {
-        $this->form->mountData();
+        $this->form->mountData($this->id);
     }
 }; ?>
 

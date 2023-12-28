@@ -1,6 +1,6 @@
 <div x-data="{ open: {{ isset($open) && $open ? 'true' : 'false' }}, working: false }" x-cloak wire:key="delete-{{ $value->title ? $value->title : $value->username }}">
     <span x-on:click="open = true">
-        <button class="p-1 text-red-600 rounded-full hover:bg-red-600 hover:text-white"><x-icons.trash /></button>
+        <button class="p-1 text-red-600 rounded-full hover:bg-red-600 hover:text-white"><x-mdi-delete class="w-4 h-4" /></button>
     </span>
 
     <div x-show="open"
