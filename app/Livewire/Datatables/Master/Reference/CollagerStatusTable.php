@@ -3,13 +3,13 @@
 namespace App\Livewire\Datatables\Master\Reference;
 
 use App\Models\CollagerStatus;
-use Illuminate\Database\Eloquent\Model;
-use Arm092\LivewireDatatables\Livewire\LivewireDatatable;
-use Arm092\LivewireDatatables\Column;
+use Rappasoft\LaravelLivewireTables\Views\Column;
+use Rappasoft\LaravelLivewireTables\Views\Columns\ComponentColumn;
+use Rappasoft\LaravelLivewireTables\DataTableComponent;
 
-class CollagerStatusTable extends LivewireDatatable
+class CollagerStatusTable extends DataTableComponent
 {
-    public string|null|Model $model = CollagerStatus::class;
+    public $model = CollagerStatus::class;
 
     public string $actName = 'Collager Status';
     public string $actPath = 'master.reference.collager-status';
@@ -19,19 +19,30 @@ class CollagerStatusTable extends LivewireDatatable
         CollagerStatus::destroy($id);
     }
 
-    public function getColumns(): array|Model
+    public function configure(): void
+    {
+        $this->setPrimaryKey('id');
+        $this->setConfigurableAreas([
+            'before-tools' => [
+                'components.buttons.create',
+                ['actName' => $this->actName, 'actPath' => $this->actPath]
+            ],
+        ]);
+    }
+
+    public function columns(): array
     {
         return [
-            Column::name('id')
-            ->label('Id'),
-            Column::name('code')
-            ->label('Code'),
-            Column::name('title')
-            ->label('Title'),
-            Column::callback('id', function ($id) {
-                $model = CollagerStatus::find($id);
-                return view('livewire.datatables.actions', ['model' => $model, 'path' => $this->actPath, 'actions' => ['edit', 'delete'] ]);
-            })->unsortable()
+            Column::make('Id','id')
+            ->sortable(),
+            Column::make('Code','code')
+            ->searchable(),
+            Column::make('Title','title')
+            ->searchable(),
+            ComponentColumn::make('', 'id')->component('actions')->attributes(function ($value, $row, Column $column) {
+                $model = CollagerStatus::find($value);
+                return ['actions' => ['edit', 'delete'], 'model' => $model, 'path' => $this->actPath];
+            }),
         ];
     }
 }

@@ -14,7 +14,6 @@ class AcademicYearTable extends DataTableComponent
 
     public string $actPath = 'master.setting.academic-year';
     public string $actName = 'Academic Year';
-    public bool $create = true;
 
     public function delete($id): void
     {
@@ -37,11 +36,12 @@ class AcademicYearTable extends DataTableComponent
         return [
             Column::make('Id', 'id'),
             Column::make('Code', 'code'),
-            Column::make('Semester', 'semester'),
+            Column::make('Semester', 'semester')
+            ->sortable(),
             BooleanColumn::make('status'),
-            ComponentColumn::make('','id')->component('actions')->attributes(function ($value, $row, Column $column) {
+            ComponentColumn::make('', 'id')->component('actions')->attributes(function ($value, $row, Column $column) {
                 $model = AcademicYear::find($value);
-                return [ 'actions' => ['edit', 'delete'], 'model' => $model, 'path' => $this->actPath];
+                return ['actions' => ['edit', 'delete'], 'model' => $model, 'path' => $this->actPath];
             }),
         ];
     }

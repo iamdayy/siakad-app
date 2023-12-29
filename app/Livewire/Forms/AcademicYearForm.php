@@ -16,23 +16,23 @@ class AcademicYearForm extends Form
     public int $id;
 
     public function mountData(int $id) {
-        $class = AcademicYear::find($id);
-        $this->code = $class->code;
-        $this->title = $class->title;
-        $this->semester = $class->semester;
-        $this->status = $class->status;
+        $academic_year = AcademicYear::find($id);
+        $this->code = $academic_year->code;
+        $this->title = $academic_year->title;
+        $this->semester = $academic_year->semester;
+        $this->status = $academic_year->status;
     }
 
     public function create()
     {
-        $class = AcademicYear::create($this->only(['title', 'code', 'semester', 'status']));
+        $academic_year = AcademicYear::create($this->only(['title', 'code', 'semester', 'status']));
 
     }
 
     public function edit()
     {
-        $class = AcademicYear::find($this->id);
+        $academic_year = AcademicYear::find($this->id);
 
-        $class->update($this->only(['title', 'code', 'semester', 'status']));
+        $academic_year->update($this->only(['title', 'code', 'semester', 'status']));
     }
 }

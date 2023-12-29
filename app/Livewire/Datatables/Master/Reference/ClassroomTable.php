@@ -9,7 +9,7 @@ use Rappasoft\LaravelLivewireTables\DataTableComponent;
 use Rappasoft\LaravelLivewireTables\Views\Columns\ComponentColumn;
 class ClassroomTable extends DataTableComponent
 {
-    public string|null|Model $model = Classroom::class;
+    public $model = Classroom::class;
     public string $actPath = 'master.reference.classroom';
     public string $actName = 'Classroom';
     public bool $create = true;

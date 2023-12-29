@@ -15,7 +15,8 @@ return new class extends Migration
             $table->id();
             $table->string('code')->unique();
             $table->string('title');
-            $table->integer('semester');
+            $table->date('start');
+            $table->date('end');
             $table->boolean('status');
             $table->timestamps();
         });

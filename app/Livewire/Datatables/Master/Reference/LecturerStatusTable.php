@@ -3,13 +3,13 @@
 namespace App\Livewire\Datatables\Master\Reference;
 
 use App\Models\LecturerStatus;
-use Illuminate\Database\Eloquent\Model;
-use Arm092\LivewireDatatables\Livewire\LivewireDatatable;
-use Arm092\LivewireDatatables\Column;
+use Rappasoft\LaravelLivewireTables\Views\Column;
+use Rappasoft\LaravelLivewireTables\Views\Columns\ComponentColumn;
+use Rappasoft\LaravelLivewireTables\DataTableComponent;
 
-class LecturerStatusTable extends LivewireDatatable
+class LecturerStatusTable extends DataTableComponent
 {
-    public string|null|Model $model = LecturerStatus::class;
+    public $model = LecturerStatus::class;
 
     public string $actName = 'Lecturer Status';
     public string $actPath = 'master.reference.lecturer-status';
@@ -19,19 +19,30 @@ class LecturerStatusTable extends LivewireDatatable
         LecturerStatus::destroy($id);
     }
 
-    public function getColumns(): array|Model
+    public function configure(): void
+    {
+        $this->setPrimaryKey('id');
+        $this->setConfigurableAreas([
+            'before-tools' => [
+                'components.buttons.create',
+                ['actName' => $this->actName, 'actPath' => $this->actPath]
+            ],
+        ]);
+    }
+
+    public function columns(): array
     {
         return [
-            Column::name('id')
-            ->label('Id'),
-            Column::name('code')
-            ->label('Code'),
-            Column::name('title')
-            ->label('Title'),
-            Column::callback('id', function ($id) {
-                $model = LecturerStatus::find($id);
-                return view('livewire.datatables.actions', ['model' => $model, 'path' => $this->actPath, 'actions' => ['edit', 'delete'] ]);
-            })->unsortable()
+            Column::make('Id','id')
+            ->sortable(),
+            Column::make('Code','code')
+            ->searchable(),
+            Column::make('Title','title')
+            ->searchable(),
+            ComponentColumn::make('', 'id')->component('actions')->attributes(function ($value, $row, Column $column) {
+                $model = LecturerStatus::find($value);
+                return ['actions' => ['edit', 'delete'], 'model' => $model, 'path' => $this->actPath];
+            }),
         ];
     }
 }

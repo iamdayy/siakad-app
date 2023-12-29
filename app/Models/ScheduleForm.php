@@ -8,4 +8,12 @@ use Illuminate\Database\Eloquent\Model;
 class ScheduleForm extends Model
 {
     use HasFactory;
+
+    protected $fillable = [
+        'code',
+        'title',
+        'start',
+        'end',
+        'status',
+    ];
 }
